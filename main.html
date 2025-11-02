@@ -2,13 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title><link rel="stylesheet" href="style.css">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">>
+    <title>Title</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 </head>
 <body>
-<header class="header"></header>
-<main class="main"></main>
+<header class="header">
+    <div><p> Lists tasks</p></div>
+</header>
+<main class="main">
+    <div class="Title">
+        <input type="text" name="title" id="title" required placeholder="Title">
+        <button id="Add_Button">Add</button>
+    </div>
+    <div class="Filters">
+        <select name="filter" id="filter">
+            <option value="all">All</option>
+            <option value="done">Done</option>
+            <option value="not_done">Not done</option>
+            <option value="in_process">In a process</option>
+        </select>
+    </div>
+    <div class="Tasks">
+        <div class="FilterTasks"></div>
+        <div class="not_done_tasks"></div>
+        <div class="done_tasks"></div>
+        <div class="in_process_tasks"></div>
+    </div>
+
+</main>
 <footer class="footer">
     Изготовлено Стрекином Иваном группы 2252
 </footer>

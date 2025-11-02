@@ -1,3 +1,22 @@
-.footer{
+@import url('https://fonts.googleapis.com/css2?family=Momo+Signature&display=swap');
+header{
+    width: 100%;
+    height: 130px;
+    background:linear-gradient(to bottom, rgba(67, 124, 248, 0.91), #abbbec);
+    font-style: normal;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+header p{
+    font-family: 'Momo Signature', serif;
+    font-size: 50px;
+    color: #020d1e;
+    text-align: center;
+}
+#logo{
+    width:200px;
+    height:200px;
 
 }
