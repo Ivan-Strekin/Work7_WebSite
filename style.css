@@ -1,33 +1,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Momo+Signature&display=swap');
-*{
+
+* {
     margin: 0;
     padding: 0;
 }
-header{
-    width:70%;
+
+header {
+    width: 70%;
     height: 130px;
-    background:linear-gradient(to bottom, rgba(67, 124, 248, 0.91), #abbbec);
-    border:4px double #ABBBECFF  ;
+    background: linear-gradient(to bottom, rgba(67, 124, 248, 0.91), #abbbec);
+    border: 4px double #ABBBECFF;
     font-style: normal;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left:auto;
-    margin-right:auto;
+    margin-left: auto;
+    margin-right: auto;
 }
-footer{
-    width:70%;
+
+footer {
+    width: 70%;
     height: 130px;
-    background:linear-gradient(to top, rgba(67, 124, 248, 0.91), #abbbec);
-    border:4px double #ABBBECFF  ;
+    background: linear-gradient(to top, rgba(67, 124, 248, 0.91), #abbbec);
+    border: 4px double #ABBBECFF;
     font-style: normal;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left:auto;
-    margin-right:auto;
+    margin-left: auto;
+    margin-right: auto;
 }
-header p,footer p{
+
+header p, footer p {
     font-family: 'Momo Signature', serif;
     font-size: 50px;
     color: #020d1e;
@@ -35,12 +39,12 @@ header p,footer p{
 }
 
 
-.main{
-    width:70%;
-    margin-left:auto;
-    margin-right:auto;
-    border-left:4px double #ABBBECFF  ;
-    border-right:4px double #ABBBECFF ;
+.main {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    border-left: 4px double #ABBBECFF;
+    border-right: 4px double #ABBBECFF;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -49,72 +53,87 @@ header p,footer p{
     padding-top: 5px;
 
 }
-.Title_in{
+
+.Title_in {
 
     display: flex;
     flex-direction: column;
     margin-bottom: 30px;
 }
-legend{
+
+legend {
     font-family: 'Momo Signature', serif;
     font-size: 20px;
     text-align: center;
     margin: 5px;
 }
+
 #title, #Add_Button {
     box-sizing: border-box;
-    width:300px;
-    height:30px;
-    border-radius:5px;
+    width: 300px;
+    height: 30px;
+    border-radius: 5px;
     text-align: center;
-    margin:5px;
+    margin: 5px;
 }
-.Filters{
+
+.Filters {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height:70px;
+    height: 70px;
     margin-bottom: 5px;
 }
-#filter{
+
+#filter {
     box-sizing: border-box;
-    width:90%;
-    height:30px;
-    border-radius:5px;
+    width: 90%;
+    height: 30px;
+    border-radius: 5px;
     text-align: center;
-    margin-left:auto;
-    margin-right:auto;
+    margin-left: auto;
+    margin-right: auto;
 
 }
-.Tasks{
+
+.Tasks {
     display: flex;
     justify-content: space-between;
-    width:100%;
-    height:500px;
+    width: 100%;
+    height: 500px;
 }
-.FilterTasks,.not_done_tasks,.done_tasks,.in_process_tasks{
-    width:20%;
-    height:100%;
-    padding:5px;
-    border:4px solid #ABBBECFF  ;
+
+.FilterTasks, .not_done_tasks, .done_tasks, .in_process_tasks {
+    width: 20%;
+    height: 100%;
+    padding: 5px;
+    border: 4px solid #ABBBECFF;
     display: flex;
     flex-direction: column;
 }
-.check_mark{
-    width:20px;
+
+.check_mark {
+    width: 20px;
     height: 20px;
     margin: auto 5px;
 }
-.Task{
+
+.Check_btn {
+    margin: 5px;
+}
+
+.Task {
     display: flex;
     justify-content: left;
 }
-.Text{
-    width:70%;
+
+.Text {
+    width: 70%;
     text-align: center;
-    border:4px solid #ABBBECFF  ;
+    border: 4px solid #ABBBECFF;
 
 }
-.Text p{
+
+.Text p {
     overflow-wrap: break-word;
 }
