@@ -15,40 +15,26 @@
     <div class="Title_in">
         <legend> Input your task</legend>
         <input type="text" name="title" id="title" required placeholder="Title">
+        <input type="text" name="priority" id="priority" required placeholder="Priority(1-2)">
         <button id="Add_Button">Add</button>
+        <legend> Filter</legend>
+        <select name="filter" id="filter">
+            <option value="all">All</option>
+            <option value="done">Done</option>
+            <option value="not_done">Not done</option>
+            <option value="in_process">In a process</option>
+            <option value="Priority1">Important tasks</option>
+            <option value="Priority2">No important tasks</option>
+        </select>
     </div>
 
     <div class="Tasks">
-        <div class="FilterTasks">
-            <div class="Filters">
-                <legend> Filter</legend>
-                <select name="filter" id="filter">
-                    <option value="all">All</option>
-                    <option value="done">Done</option>
-                    <option value="not_done">Not done</option>
-                    <option value="in_process">In a process</option>
-                </select>
-            </div>
-            <div class="Tasks_block" id="Filter_block"></div>
-        </div>
+
         <div class="not_done_tasks">
             <div class="Filters">
                 <legend> Not done tasks</legend>
             </div>
-            <div class="Tasks_block" id="not_done_block" >
-<!--                <div class="Task">-->
-<!--                    <div class="Text"><p>WEB</p></div>-->
-<!--                    <button class="Check_btn" name="Check_Yes_btn">-->
-<!--                        <img src="img/png-transparent-check-mark-fotolia-green-leaf-text-grass-line-area.png"-->
-<!--                             class="check_mark">-->
-<!--                    </button>-->
-<!--                    <button class="Check_btn" name="Check_No_btn">-->
-<!--                        <img src="img/Flag_of_the_Kingdom_of_Kongo_according_to_Giovanni_Cavazzi_da_Montecuccolo.svg.png"-->
-<!--                             class="check_mark">-->
-<!--                    </button>-->
-
-<!--                </div>-->
-            </div>
+            <div class="Tasks_block" id="not_done_block" ></div>
 
         </div>
         <div class="in_process_tasks">

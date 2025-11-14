@@ -45,7 +45,7 @@ header p, footer p {
     margin-right: auto;
     border-left: 4px double #ABBBECFF;
     border-right: 4px double #ABBBECFF;
-    height: 100vh;
+    height: 110vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -68,7 +68,7 @@ legend {
     margin: 5px;
 }
 
-#title, #Add_Button {
+#title,#priority, #Add_Button {
     box-sizing: border-box;
     width: 300px;
     height: 30px;
@@ -98,9 +98,10 @@ legend {
 
 .Tasks {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
     height: 500px;
+
 }
 
 .FilterTasks, .not_done_tasks, .done_tasks, .in_process_tasks {
@@ -110,6 +111,7 @@ legend {
     border: 4px solid #ABBBECFF;
     display: flex;
     flex-direction: column;
+    margin:10px;
 }
 
 .check_mark {
@@ -140,4 +142,18 @@ legend {
 
 .Text p {
     overflow-wrap: break-word;
+}
+.RedBorders{
+
+}
+.sub-task-icon{
+    width: 25px;
+    height: 25px;
+    background: #e18a00;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left:5px;
+
 }
