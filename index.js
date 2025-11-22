@@ -1,5 +1,8 @@
- let tasks = [];
+
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
 const button = document.querySelector('#Add_Button');
+const deleteAllButton = document.querySelector('#DeleteAll_Button');
 const title = document.querySelector('#title');
 const priority = document.querySelector('#priority');
 const filterSelect = document.querySelector('#filter');
@@ -8,134 +11,146 @@ const done_block = document.querySelector('#Done_block');
 const process_block = document.querySelector('#Process_block');
 const notdone_block = document.querySelector('#not_done_block');
 
-// Очистка блока
+
+function saveTasks() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+
 function clearTaskContainer(blockTasks) {
     blockTasks.innerHTML = '';
 }
 
-// Функция обновления блока
+
 function UpdateContainer(block, titles) {
     clearTaskContainer(block);
-    for (let i = 0; i < titles.length; i++) {
+
+    titles.forEach(t => {
         const taskHTML = document.createElement("div");
         taskHTML.classList.add("Task");
-        if (titles[i][2]==="1"){
+        taskHTML.draggable = true;
+        taskHTML.dataset.index = tasks.indexOf(t);
+
         taskHTML.innerHTML = `
-      <div class="Text"><p>${titles[i][0]}</p>
-      <span class="sub-task-icon priority-badge" style="background: #e18a00"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-up icon-14"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg></span>
-       
+      <div class="Text">
+        <p>${t[0]}</p>
+        ${t[2] === "1" ? '<span class="priority-badge" style="color:#e18a00;">⬆</span>' : ''}
       </div>
-      <button class="Check_btn" name="Check_Yes_btn">
-        <img src="img/png-transparent-check-mark-fotolia-green-leaf-text-grass-line-area.png" class="check_mark">
+      <button class="icon-btn left-btn" title="Move Left">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
       </button>
-      <button class="Check_btn" name="Check_No_btn">
-        <img src="img/Flag_of_the_Kingdom_of_Kongo_according_to_Giovanni_Cavazzi_da_Montecuccolo.svg.png" class="check_mark">
+      <button class="icon-btn right-btn" title="Move Right">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
-    `;}
-        else{
-            taskHTML.innerHTML = `
-      <div class="Text"><p>${titles[i][0]}</p>
-      </div>
-      <button class="Check_btn" name="Check_Yes_btn">
-        <img src="img/png-transparent-check-mark-fotolia-green-leaf-text-grass-line-area.png" class="check_mark">
+      <button class="icon-btn delete-btn" title="Delete Task">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
-      <button class="Check_btn" name="Check_No_btn">
-        <img src="img/Flag_of_the_Kingdom_of_Kongo_according_to_Giovanni_Cavazzi_da_Montecuccolo.svg.png" class="check_mark">
-      </button>
-    `;}
+    `;
 
+        const leftBtn = taskHTML.querySelector('.left-btn');
+        const rightBtn = taskHTML.querySelector('.right-btn');
+        const deleteBtn = taskHTML.querySelector('.delete-btn');
 
-        // События на кнопки
-        const yesBtn = taskHTML.querySelector('[name="Check_Yes_btn"]');
-        const noBtn = taskHTML.querySelector('[name="Check_No_btn"]');
-
-        yesBtn.addEventListener("click", () => {
-            if (titles[i][1] < 2) titles[i][1]++;
+        leftBtn.addEventListener("click", () => {
+            if (t[1] > 0) t[1]--;
             RenderAll();
         });
 
-        noBtn.addEventListener("click", () => {
-            if (titles[i][1] > 0) titles[i][1]--;
+        rightBtn.addEventListener("click", () => {
+            if (t[1] < 2) t[1]++;
             RenderAll();
+        });
+
+        deleteBtn.addEventListener("click", () => {
+            tasks = tasks.filter(task => task !== t);
+            RenderAll();
+        });
+
+        // --- Drag & Drop события ---
+        taskHTML.addEventListener("dragstart", e => {
+            e.dataTransfer.setData("text/plain", tasks.indexOf(t));
+            taskHTML.classList.add("dragging");
+        });
+
+        taskHTML.addEventListener("dragend", () => {
+            taskHTML.classList.remove("dragging");
         });
 
         block.appendChild(taskHTML);
-    }
+    });
 }
 
-// Главная функция отрисовки всех блоков
+// --- Главная функция отрисовки ---
 function RenderAll() {
-    let not_done_tasks = tasks.filter(t => t[1] === 0);
-    let in_process_tasks = tasks.filter(t => t[1] === 1);
-    let done_tasks = tasks.filter(t => t[1] === 2);
+    const filterValue = filterSelect.value;
+    let filtered = [...tasks];
+
+    if (filterValue === "done") filtered = tasks.filter(t => t[1] === 2);
+    if (filterValue === "not_done") filtered = tasks.filter(t => t[1] === 0);
+    if (filterValue === "in_process") filtered = tasks.filter(t => t[1] === 1);
+    if (filterValue === "Priority1") filtered = tasks.filter(t => t[2] === "1");
+    if (filterValue === "Priority2") filtered = tasks.filter(t => t[2] === "2");
+
+    const not_done_tasks = filtered.filter(t => t[1] === 0);
+    const in_process_tasks = filtered.filter(t => t[1] === 1);
+    const done_tasks = filtered.filter(t => t[1] === 2);
 
     UpdateContainer(notdone_block, not_done_tasks);
     UpdateContainer(process_block, in_process_tasks);
     UpdateContainer(done_block, done_tasks);
 
-    // Фильтр блок
-    const filterValue = filterSelect.value;
-    let filtered = [];
-    if (filterValue === "all") {
-        filtered = tasks;
-
-
-    }
-    if (filterValue === "done")
-    {
-        filtered = done_tasks;
-        UpdateContainer(done_block, filtered);
-        clearTaskContainer(process_block);
-        clearTaskContainer(notdone_block);
-    }
-    if (filterValue === "not_done") {
-        filtered = not_done_tasks;
-        UpdateContainer(notdone_block, filtered);
-        clearTaskContainer(process_block);
-        clearTaskContainer(done_block);
-
-
-    }
-    if (filterValue === "in_process"){
-        filtered = in_process_tasks;
-        UpdateContainer(process_block, filtered);
-        clearTaskContainer(done_block);
-        clearTaskContainer(notdone_block);
-
-    }
-    if (filterValue === "Priority1"){
-            filtered = tasks.filter(t => t[2] === "1");
-    }
-    if (filterValue === "Priority2"){
-            filtered = tasks.filter(t => t[2] === "2");
-    }
-    if (filterValue === "Priority1" || filterValue === "Priority2") {
-        not_done_tasks = filtered.filter(t => t[1] === 0);
-        in_process_tasks = filtered.filter(t => t[1] === 1);
-        done_tasks = filtered.filter(t => t[1] === 2);
-        UpdateContainer(done_block, done_tasks);
-        UpdateContainer(notdone_block, not_done_tasks);
-        UpdateContainer(process_block, in_process_tasks);
-    }
+    saveTasks();
 }
 
-// Добавление задачи
+// --- Drag & Drop  ---
+[notdone_block, process_block, done_block].forEach(block => {
+    const parent = block.parentElement;
+
+    // Когда таскаем над блоком
+    block.addEventListener("dragover", e => {
+        e.preventDefault(); // разрешаем сброс
+        e.currentTarget.classList.add("drag-over");
+    });
+
+    // Когда курсор уходит
+    block.addEventListener("dragleave", e => {
+        e.currentTarget.classList.remove("drag-over");
+    });
+
+    // Когда отпускаем задачу
+    block.addEventListener("drop", e => {
+        e.preventDefault();
+        e.currentTarget.classList.remove("drag-over");
+
+        const index = e.dataTransfer.getData("text/plain");
+        const newStatus = parseInt(parent.dataset.status);
+
+        if (index !== "" && tasks[index]) {
+            tasks[index][1] = newStatus;
+            RenderAll();
+        }
+    });
+});
+
+// --- Добавление задачи ---
 button.addEventListener("click", () => {
     const title_text = title.value.trim();
     let priority_text = priority.value.trim();
-    if (priority_text===""){
-        priority_text="3";
-    }
+    if (priority_text === "") priority_text = "2";
     if (title_text !== "") {
-        tasks.push([title_text, 0,priority_text]);
+        tasks.push([title_text, 0, priority_text]);
         title.value = "";
         RenderAll();
     }
 });
 
-// Фильтр
-filterSelect.addEventListener("change", () => {
+
+deleteAllButton.addEventListener("click", () => {
+    tasks = [];
     RenderAll();
 });
+
+
+filterSelect.addEventListener("change", RenderAll);
 
 RenderAll();

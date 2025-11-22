@@ -2,59 +2,50 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Task Manager</title>
     <link rel="stylesheet" href="style.css">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <header class="header">
-    <div><p> Lists tasks</p></div>
+    <div><p>Lists tasks</p></div>
 </header>
 <main class="main">
     <div class="Title_in">
-        <legend> Input your task</legend>
+        <legend>Input your task</legend>
         <input type="text" name="title" id="title" required placeholder="Title">
         <input type="text" name="priority" id="priority" required placeholder="Priority(1-2)">
         <button id="Add_Button">Add</button>
-        <legend> Filter</legend>
+        <button id="DeleteAll_Button">Delete all</button>
+        <legend>Filter</legend>
         <select name="filter" id="filter">
             <option value="all">All</option>
             <option value="done">Done</option>
             <option value="not_done">Not done</option>
-            <option value="in_process">In a process</option>
+            <option value="in_process">In process</option>
             <option value="Priority1">Important tasks</option>
             <option value="Priority2">No important tasks</option>
         </select>
     </div>
 
     <div class="Tasks">
-
-        <div class="not_done_tasks">
-            <div class="Filters">
-                <legend> Not done tasks</legend>
-            </div>
-            <div class="Tasks_block" id="not_done_block" ></div>
-
+        <div class="not_done_tasks" data-status="0">
+            <div class="Filters"><legend>Not done tasks</legend></div>
+            <div class="Tasks_block" id="not_done_block"></div>
         </div>
-        <div class="in_process_tasks">
-            <div class="Filters">
-                <legend> In process tasks</legend>
-            </div>
+
+        <div class="in_process_tasks" data-status="1">
+            <div class="Filters"><legend>In process tasks</legend></div>
             <div class="Tasks_block" id="Process_block"></div>
-
         </div>
-        <div class="done_tasks">
-            <div class="Filters">
-                <legend> Done tasks</legend>
-            </div>
+
+        <div class="done_tasks" data-status="2">
+            <div class="Filters"><legend>Done tasks</legend></div>
             <div class="Tasks_block" id="Done_block"></div>
         </div>
-
-
     </div>
-
 </main>
+
 <footer class="footer">
     <p>Made by Strekin Ivan 2252</p>
 </footer>

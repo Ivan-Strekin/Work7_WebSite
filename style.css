@@ -3,32 +3,22 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
-header {
+header, footer {
     width: 70%;
     height: 130px;
     background: linear-gradient(to bottom, rgba(67, 124, 248, 0.91), #abbbec);
     border: 4px double #ABBBECFF;
-    font-style: normal;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: auto;
-    margin-right: auto;
+    margin: auto;
 }
 
 footer {
-    width: 70%;
-    height: 130px;
     background: linear-gradient(to top, rgba(67, 124, 248, 0.91), #abbbec);
-    border: 4px double #ABBBECFF;
-    font-style: normal;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 header p, footer p {
@@ -38,27 +28,23 @@ header p, footer p {
     text-align: center;
 }
 
-
 .main {
     width: 70%;
-    margin-left: auto;
-    margin-right: auto;
+    margin: auto;
     border-left: 4px double #ABBBECFF;
     border-right: 4px double #ABBBECFF;
-    height: 110vh;
+    min-height: 110vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-bottom: 5px;
-    padding-top: 5px;
-
+    padding: 10px 0;
 }
 
 .Title_in {
-
     display: flex;
     flex-direction: column;
     margin-bottom: 30px;
+    align-items: center;
 }
 
 legend {
@@ -68,8 +54,26 @@ legend {
     margin: 5px;
 }
 
-#title,#priority, #Add_Button {
-    box-sizing: border-box;
+#title, #priority, #Add_Button, #DeleteAll_Button {
+    width: 300px;
+    height: 30px;
+    border-radius: 5px;
+    text-align: center;
+    margin: 5px;
+    border: 1px solid #ABBBECFF;
+}
+
+#Add_Button, #DeleteAll_Button {
+    background: #e3e9ff;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+#Add_Button:hover, #DeleteAll_Button:hover {
+    background: #c6d1ff;
+}
+
+#filter {
     width: 300px;
     height: 30px;
     border-radius: 5px;
@@ -77,83 +81,151 @@ legend {
     margin: 5px;
 }
 
-.Filters {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 70px;
-    margin-bottom: 5px;
-}
-
-#filter {
-    box-sizing: border-box;
-    width: 90%;
-    height: 30px;
-    border-radius: 5px;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-
-}
 
 .Tasks {
     display: flex;
     justify-content: center;
     width: 100%;
     height: 500px;
-
+    margin: 30px 0;
 }
 
-.FilterTasks, .not_done_tasks, .done_tasks, .in_process_tasks {
-    width: 20%;
+.not_done_tasks, .in_process_tasks, .done_tasks {
+    width: 30%;
     height: 100%;
     padding: 5px;
     border: 4px solid #ABBBECFF;
     display: flex;
     flex-direction: column;
-    margin:10px;
+    margin: 10px;
 }
 
-.check_mark {
-    width: 20px;
-    height: 20px;
-    margin: auto 5px;
+
+.Tasks_block {
+    flex-grow: 1;
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
 }
 
-.Check_btn {
-    margin: 5px;
-}
 
 .Task {
     display: flex;
-    justify-content: left;
-    margin: 5px;
+    align-items: center;
+    justify-content: space-between;
+    margin: 5px 0;
+    border: 2px solid #ABBBECFF;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: #f7f8ff;
+    cursor: grab;
+    gap: 8px;
+    flex-wrap: nowrap;
+    min-height: 50px;
 }
 
+.Task.dragging {
+    opacity: 0.5;
+    transform: scale(1.05);
+}
+
+/* Текст и приоритет */
 .Text {
-    width: 70%;
-    text-align: center;
-    border: 4px solid #ABBBECFF;
+    flex: 1;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    font-family: sans-serif;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    min-width: 0;
 
 }
 
 .Text p {
-    overflow-wrap: break-word;
+    font-size: 14px;
+    margin-right: 8px;
 }
-.RedBorders{
 
+.priority-badge {
+    margin-left: 5px;
+    font-size: 16px;
 }
-.sub-task-icon{
-    width: 25px;
-    height: 25px;
-    background: #e18a00;
-    border-radius: 50%;
+
+/* Кнопки */
+.icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin: 0 2px;
     display: flex;
-    justify-content: center;
     align-items: center;
-    margin-left:5px;
+    justify-content: center;
+    flex-shrink: 0;
+}
 
+.icon-btn svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2;
+}
+
+
+.drag-over {
+    background-color: rgba(171, 187, 236, 0.25);
+    border: 3px dashed #5b73f0;
+    border-radius: 6px;
+}
+
+
+@media (max-width: 900px) {
+    .main, header, footer {
+        width: 90%;
+    }
+
+    header p, footer p {
+        font-size: 36px;
+    }
+
+    .Tasks {
+        flex-direction: column;
+        height: auto;
+        align-items: center;
+        margin: 30px 0;
+    }
+
+    .not_done_tasks, .in_process_tasks, .done_tasks {
+        width: 90%;
+        height: 400px;
+    }
+
+    .Text p {
+        font-size: 13px;
+    }
+
+    #title, #priority, #Add_Button, #DeleteAll_Button, #filter {
+        width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    header p, footer p {
+        font-size: 28px;
+    }
+
+    .Text p {
+        font-size: 12px;
+    }
+
+    .icon-btn svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .not_done_tasks, .in_process_tasks, .done_tasks {
+        height: 350px;
+    }
 }
